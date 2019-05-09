@@ -8,9 +8,73 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 		<title>Dostava - FoodDelivery</title>
+
+		<script src="../js/DataHelper.js"></script>
+
+		<script type="text/javascript">
+			
+			var data = dohvatiRestorane();
+
+			function load(){
+
+				var row = document.getElementById("restorani");
+
+				row.innerHTML = "";
+
+				for (var i = 0; i < data.length; i++){
+					row.innerHTML += '\
+						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">\
+							<div class="card">\
+							  <img class="card-img-top" src="../img/' + data[i].slike[0] + '">\
+							  <div class="card-body">\
+							    <h4 class="card-title">' + data[i].naziv + '</h4>\
+							    <p class="card-text">\
+							    	<a class="btn btn-success btn-block" href="Meni.html?id=' + data[i].id + '">Meni</a>\
+							    </p>\
+							  </div>\
+							</div>\
+						</div>';
+				}
+
+			}
+
+			function filterChange(){
+
+				var f = new Array();
+
+				if (document.getElementById("srpska").checked) f.push("Srpska hrana");
+				if (document.getElementById("italijanska").checked) f.push("Italijanska hrana");
+				if (document.getElementById("kineska").checked) f.push("Kineska hrana");
+				if (document.getElementById("indijska").checked) f.push("Indijska hrana");
+				if (document.getElementById("giros").checked) f.push("Giros");
+
+				data = dohvatiRestorane();
+
+				if (f.length != 0){
+					data = data.filter(function(a){
+
+						var res = false;
+
+						for (var i = 0; i < f.length; i++){
+							if (a.tipovi.includes(f[i])){
+								res = true;
+								break;
+							}
+						}
+
+						return res;
+
+					});
+				}
+				
+
+				load();
+			}
+
+		</script>
 	</head>
 
-	<body>
+	<body onload="load()">
 		
 		<header>
 
@@ -67,9 +131,7 @@
 			
 		</header> 
 
-		<div class="container-fluid mt-3">
-			
-			
+		<div class="container-fluid mt-3">		
 
 			<div class="row">
 
@@ -78,127 +140,39 @@
 
 						<h4>Filter:</h4>
 
-						<form>
-					    		
-					    		<div class="custom-control custom-checkbox">
-								    <input type="checkbox" class="custom-control-input" id="srpska" name="srpska">
-								    <label class="custom-control-label" for="srpska">Srpska hrana</label>
-								</div>
+				    		<div class="custom-control custom-checkbox">
+							    <input type="checkbox" class="custom-control-input" id="srpska" name="srpska">
+							    <label class="custom-control-label" for="srpska">Srpska hrana</label>
+							</div>
 
-      							<div class="custom-control custom-checkbox">
-								    <input type="checkbox" class="custom-control-input" id="italijanska" name="italijanska">
-								    <label class="custom-control-label" for="italijanska">Italijanska hrana</label>
-								</div>
+  							<div class="custom-control custom-checkbox">
+							    <input type="checkbox" class="custom-control-input" id="italijanska" name="italijanska">
+							    <label class="custom-control-label" for="italijanska">Italijanska hrana</label>
+							</div>
 
-								<div class="custom-control custom-checkbox">
-								    <input type="checkbox" class="custom-control-input" id="kineska" name="kineska">
-								    <label class="custom-control-label" for="kineska">Kineska hrana</label>
-								</div>
+							<div class="custom-control custom-checkbox">
+							    <input type="checkbox" class="custom-control-input" id="kineska" name="kineska">
+							    <label class="custom-control-label" for="kineska">Kineska hrana</label>
+							</div>
 
-								<div class="custom-control custom-checkbox">
-								    <input type="checkbox" class="custom-control-input" id="giros" name="giros">
-								    <label class="custom-control-label" for="giros">Giros</label>
-								</div>
+							<div class="custom-control custom-checkbox">
+							    <input type="checkbox" class="custom-control-input" id="giros" name="giros">
+							    <label class="custom-control-label" for="giros">Giros</label>
+							</div>
 
-								<div class="custom-control custom-checkbox">
-								    <input type="checkbox" class="custom-control-input" id="indijska" name="indijska">
-								    <label class="custom-control-label" for="indijska">Indijska hrana</label>
-								</div>
+							<div class="custom-control custom-checkbox">
+							    <input type="checkbox" class="custom-control-input" id="indijska" name="indijska">
+							    <label class="custom-control-label" for="indijska">Indijska hrana</label>
+							</div>
 
-      							<button type="submit" class="btn btn-success btn-block mt-3">Primeni</button>
-
-					    </form>
+  							<button class="btn btn-success btn-block mt-3" onclick="filterChange()">Primeni</button>
 
 					</div>
 				</div>
 
 				<div class="col-sm-12 col-lg-9">
 
-					<div class="row mt">
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
-						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">
-							<div class="card">
-							  <img class="card-img-top" src="../img/restoranlogo.png">
-							  <div class="card-body">
-							    <h4 class="card-title">Naziv restorana</h4>
-							    <p class="card-text">
-							    	<button class="btn btn-success btn-block">Meni</button>
-							    </p>
-							  </div>
-							</div>
-						</div>
-
+					<div class="row mt" id="restorani">
 						
 					</div>
 
