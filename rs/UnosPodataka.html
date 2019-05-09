@@ -8,6 +8,71 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 		<title>Unos Podataka - FoodDelivery</title>
+
+		<script>
+
+			function naruci(){
+
+				var name = document.unos.name.value;
+				var email = document.unos.email.value;
+				var telefon = document.unos.telefon.value;
+				var adresa = document.unos.adresa.value;
+
+				if (name == "") {
+					alert("Niste uneli Ime i Prezime!");
+					return;
+				}
+
+				if (email == ""){
+					alert("Niste uneli E-mail!");
+					return;
+				}
+				else{
+					var reg = /^\w+(-\w+)?@\w+\.\w+$/;
+
+					if (!reg.test(email)){
+						alert("E-mail nije u odgovarajucem formatu!");
+						return;
+					}
+				}
+
+				if (telefon == ""){
+					alert("Niste uneli broj telefona!");
+					return;
+				}
+				else{
+					var reg = /\+381\d{8}/;
+					if(!reg.test(telefon)){
+						alert("Telefon nije u odgovarajucem formatu!");
+						return;
+					}
+				}
+
+				if (adresa == ""){
+					alert("Niste uneli adresu!");
+					return;
+				}
+
+				
+
+				if (localStorage.mojenarudzbine){
+					var arr = JSON.parse(localStorage.mojenarudzbine);
+					arr.push({"restoran": localStorage.restoran, "cena": localStorage.cena, "datum": new Date().toUTCString()});
+					localStorage.setItem("mojenarudzbine", JSON.stringify(arr));
+				}
+				else{
+					var arr = new Array({"restoran": localStorage.restoran, "cena": localStorage.cena, "datum": new Date().toUTCString()});
+					localStorage.setItem("mojenarudzbine", JSON.stringify(arr));
+				}
+
+				localStorage.removeItem("restoran");
+				localStorage.removeItem("cena");
+
+				window.location.href="PrikazRacuna.html";
+
+			}
+
+		</script>
 	</head>
 
 	<body>
@@ -15,8 +80,8 @@
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -33,11 +98,11 @@
 						<li class="nav-item dropdown mr-2">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restorani</a>
 							<div class="dropdown-menu">
-						      <a class="dropdown-item" href="Beograd.html">Beograd</a>
-						      <a class="dropdown-item" href="NoviSad.html">Novi Sad</a>
-						      <a class="dropdown-item" href="Kragujevac.html">Kragujevac</a>
-						      <a class="dropdown-item" href="Krusevac.html">Kruševac</a>
-						      <a class="dropdown-item" href="KosovskaMitrovica.html">Kosovska Mitrovica</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
 						    </div>
 						</li>
 						<li class="nav-item mr-2"><a class="nav-link" href="Dostava.html">Dostava</a></li>
@@ -65,7 +130,7 @@
 
 			</div>
 			
-		</header> 
+		</header>  
 
 
 		<div class="container">
@@ -73,28 +138,28 @@
 			<div class="row mt-3">
 
 				<div class="col-s-12 col-lg-6 ml-auto mr-auto">
-					<form>
+					<form name="unos">
 						<div class="form-group">
 						  <label for="name">Ime i Prezime:</label>
-						  <input type="text" class="form-control" id="name">
+						  <input type="text" class="form-control" id="name" name="name">
 						</div>
 
 						<div class="form-group">
 						  <label for="email">E-mail:</label>
-						  <input type="email" class="form-control" id="email">
+						  <input type="email" class="form-control" id="email" name="email">
 						</div>
 
 						<div class="form-group">
 						  <label for="telefon">Telefon:</label>
-						  <input type="tel" class="form-control" id="telefon">
+						  <input type="tel" class="form-control" id="telefon" name="telefon">
 						</div>
 
 						<div class="form-group">
 						  <label for="adresa">Adresa:</label>
-						  <input type="text" class="form-control" id="adresa">
+						  <input type="text" class="form-control" id="adresa" name="adresa">
 						</div>
 
-						<button type="submit" class="btn btn-block btn-success">Naruči</button>
+						<input type="button" class="btn btn-block btn-success" onclick="naruci()" value="Naruči">
 					</form>
 				</div>
 
@@ -106,7 +171,10 @@
 		
 
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду

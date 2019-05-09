@@ -108,8 +108,8 @@
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -150,8 +150,9 @@
 
 			<div id="page-info" class="p-5">
 
-				<h1 class="text-center">Restorani u Beogradu</h1>
+				<h1 class="text-center">Restorani</h1>
 				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
+					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>
 				</ul>
 
 			</div>
@@ -165,7 +166,6 @@
 				<div class="col d-flex align-items-center">
 					<div class="sortiraj-filter">
 						<select  class="custom-select" id="sortiraj" onchange="orderChange()">
-							<option>Sortiraj</option>
 							<option>Po imenu</option>
 							<option>Po lokaciji</option>
 							<option>Po oceni</option>
@@ -184,7 +184,10 @@
 		</div>
 
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду

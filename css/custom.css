@@ -126,6 +126,15 @@ footer{
    color: white;
 }
 
+#ads{
+	background: #333;
+	margin-bottom: 10px
+}
+
+#ads img {
+	max-width: 1000px;
+}
+
 /* INDEX */
 
 #home-desc {

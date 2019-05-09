@@ -6,17 +6,67 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
 		<title>Moje Narudžbine - FoodDelivery</title>
+
+		<script>
+
+			function load(){
+
+				var table = document.getElementById("narudzbine");
+
+				if (localStorage.mojenarudzbine){
+
+					var arr = JSON.parse(localStorage.mojenarudzbine);
+
+					for (var i = 0; i < arr.length; i++){
+
+						var tr = document.createElement("tr");
+
+						var td = document.createElement("td");
+						td.innerHTML = arr[i].restoran;
+						tr.appendChild(td);
+
+						var td = document.createElement("td");
+						td.innerHTML = arr[i].datum;
+						tr.appendChild(td);
+
+						var td = document.createElement("td");
+						td.innerHTML = arr[i].cena;
+						tr.appendChild(td);
+
+						var td = document.createElement("td");
+						td.innerHTML = '<button class="btn btn-success" onclick="preuzmi(\'' + arr[i].restoran + '\',\'' + arr[i].datum + '\',' + arr[i].cena + ')">Preuzmi</button>';
+						tr.appendChild(td);
+
+						table.appendChild(tr);
+					}
+
+				}
+
+			}
+
+			function preuzmi(restoran, datum, cena){
+				
+				var doc = new jsPDF();
+
+				doc.text(restoran + "\n" + datum + "\n" + cena, 10,10);
+
+				doc.save("Narudzbina.pdf");
+
+			}
+
+		</script>
 	</head>
 
-	<body>
+	<body onload="load()">
 		
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -33,11 +83,11 @@
 						<li class="nav-item dropdown mr-2">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restorani</a>
 							<div class="dropdown-menu">
-						      <a class="dropdown-item" href="Beograd.html">Beograd</a>
-						      <a class="dropdown-item" href="NoviSad.html">Novi Sad</a>
-						      <a class="dropdown-item" href="Kragujevac.html">Kragujevac</a>
-						      <a class="dropdown-item" href="Krusevac.html">Kruševac</a>
-						      <a class="dropdown-item" href="KosovskaMitrovica.html">Kosovska Mitrovica</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
 						    </div>
 						</li>
 						<li class="nav-item mr-2"><a class="nav-link" href="Dostava.html">Dostava</a></li>
@@ -58,7 +108,7 @@
 			<div id="page-info" class="p-5">
 
 				<h1 class="text-center">Moje Narudžbine</h1>
-				<ul class="breadcrumb justify-content-center p-0">
+				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
 					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>
 					<li class="breadcrumb-item"><a href="#">Moje Narudžbine</a></li>
 				</ul>
@@ -72,41 +122,14 @@
 			<div class="row mt-3">
 				<div class="col">
 
-					<table class="table table-striped text-center">
+					<table class="table table-striped text-center" id="narudzbine">
 						<thead class="thead-dark">
-							<th>#ID</th>
 							<th>Restoran</th>
 							<th>Datum</th>
 							<th>Cena</th>
 							<th>PDF</th>
 						</thead>
-						<tr>
-							<td>123</td>
-							<td>Restoran 1</td>
-							<td>20-12-2018</td>
-							<td>2133</td>
-							<td>
-								<button class="btn btn-success">Preuzmi</button>
-							</td>
-						</tr>
-						<tr>
-							<td>123</td>
-							<td>Restoran 1</td>
-							<td>20-12-2018</td>
-							<td>2133</td>
-							<td>
-								<button class="btn btn-success">Preuzmi</button>
-							</td>
-						</tr>
-						<tr>
-							<td>123</td>
-							<td>Restoran 1</td>
-							<td>20-12-2018</td>
-							<td>2133</td>
-							<td>
-								<button class="btn btn-success">Preuzmi</button>
-							</td>
-						</tr>
+
 					</table>
 
 				</div>
@@ -116,7 +139,10 @@
 		</div>
 
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду

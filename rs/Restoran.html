@@ -8,15 +8,87 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 		<title>Restoran 1 - FoodDelivery</title>
+
+		<script src="../js/DataHelper.js"></script>
+
+		<script>
+
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var c = url.searchParams.get("id");
+
+			var data = dohvatiRestorane();
+
+			data = data.filter(function test(a){
+				if (a.id == parseInt(c)) return true;
+				else return false;
+			});
+
+			function load(){
+
+				document.getElementsByTagName("title")[0].innerHTML = data[0].naziv + " - FoodDelivery";
+
+				document.getElementById("naslov").innerHTML = data[0].naziv;
+
+				document.getElementById("breadcrumb").innerHTML = '\
+					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>\
+					<li class="breadcrumb-item"><a href="#">Restoran</a></li>\
+					<li class="breadcrumb-item"><a href="#">' + data[0].naziv + '</a></li>\
+				';
+
+				var slike = data[0].slike;
+				var indicators = document.getElementById("sl-ind");
+				var imgs = document.getElementById("sl-img");
+
+				indicators.innerHTML = "";
+				imgs.innerHTML = "";
+
+				for (var i = 0; i < slike.length; i++){
+
+					if (i == 0){
+
+						indicators.innerHTML += '<li data-target="#slider" data-slide-to="' + i + '" class="active"></li>';
+						imgs.innerHTML += '<div class="carousel-item active">\
+					      <img src="../img/' + slike[i] + '">\
+					    </div>';
+					}
+					else{
+
+						indicators.innerHTML += '<li data-target="#slider" data-slide-to="' + i + '"></li>';
+						imgs.innerHTML += '<div class="carousel-item">\
+					      <img src="../img/' + slike[i] + '">\
+					    </div>';
+
+					}
+
+				}
+
+				document.getElementById("opis").innerHTML = data[0].opis;
+				document.getElementById("lokacija").innerHTML = '<div class="mapouter"><div class="gmap_canvas"><iframe width="500" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=' + encodeURI(data[0].adresa) + '&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net">crocothemes.net</a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>';
+
+			}
+
+			function Oceni(){
+
+				var ocena = parseInt(document.oceni.ocena.value);
+				var id = parseInt(c);
+
+				dodajOcenu(id,ocena);
+
+				alert("Uspesno ste ocenili restoran!");
+
+			}
+
+		</script>
 	</head>
 
-	<body>
+	<body onload="load()">
 		
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -33,11 +105,11 @@
 						<li class="nav-item dropdown mr-2">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restorani</a>
 							<div class="dropdown-menu">
-						      <a class="dropdown-item" href="Beograd.html">Beograd</a>
-						      <a class="dropdown-item" href="NoviSad.html">Novi Sad</a>
-						      <a class="dropdown-item" href="Kragujevac.html">Kragujevac</a>
-						      <a class="dropdown-item" href="Krusevac.html">Kruševac</a>
-						      <a class="dropdown-item" href="KosovskaMitrovica.html">Kosovska Mitrovica</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
 						    </div>
 						</li>
 						<li class="nav-item mr-2"><a class="nav-link" href="Dostava.html">Dostava</a></li>
@@ -57,10 +129,9 @@
 
 			<div id="page-info" class="p-5">
 
-				<h1 class="text-center">Restoran 1</h1>
-				<ul class="breadcrumb justify-content-center p-0">
-					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>
-					<li class="breadcrumb-item"><a href="#">Restoran 1</a></li>
+				<h1 class="text-center" id="naslov">Restoran</h1>
+				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
+					
 				</ul>
 
 			</div>
@@ -76,23 +147,12 @@
 					<div id="slider" class="carousel slide" data-ride="carousel">
 
 					  <!-- Indicators -->
-					  <ul class="carousel-indicators">
-					    <li data-target="#slider" data-slide-to="0" class="active"></li>
-					    <li data-target="#slider" data-slide-to="1"></li>
-					    <li data-target="#slider" data-slide-to="2"></li>
+					  <ul class="carousel-indicators" id="sl-ind">
 					  </ul>
 
 					  <!-- The slideshow -->
-					  <div class="carousel-inner">
-					    <div class="carousel-item active">
-					      <img src="../img/restoran1.jpg" alt="Los Angeles">
-					    </div>
-					    <div class="carousel-item">
-					      <img src="../img/restoran2.jpg" alt="Chicago">
-					    </div>
-					    <div class="carousel-item">
-					      <img src="../img/restoran3.jpg" alt="New York">
-					    </div>
+					  <div class="carousel-inner" id="sl-img">
+						
 					  </div>
 
 					  <!-- Left and right controls -->
@@ -114,12 +174,12 @@
 				<div class="col-12">
 
 					<div class="ml-auto" id="oceni">
-						<form>
+						<form name="oceni">
 							
 							<div class="form-group d-flex align-items-center">
-								<input type="number" class="form-control" min="1" max="5" value="5">
+								<input type="number" class="form-control" min="1" max="5" value="5" name="ocena">
 
-								<input type="submit" class="btn btn-danger btn-lg ml-3" value="Oceni">
+								<input type="button" onclick="Oceni()" class="btn btn-danger btn-lg ml-3" value="Oceni">
 							</div>
 						</form>
 					</div>
@@ -141,8 +201,8 @@
 					</div>
 
 					<div class="item-description">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						<p id="opis">
+							
 						</p>
 					</div>
 
@@ -162,8 +222,8 @@
 						</div>
 					</div>
 
-					<div class="item-description">
-						<div class="mapouter"><div class="gmap_canvas"><iframe width="500" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=dimitrija%20tucovica%20&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net">crocothemes.net</a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>
+					<div class="item-description" id="lokacija">
+						
 					</div>
 
 				</div>
@@ -173,7 +233,10 @@
 		</div>
 
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду

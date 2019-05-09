@@ -21,8 +21,8 @@
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -39,11 +39,11 @@
 						<li class="nav-item dropdown mr-2">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restorani</a>
 							<div class="dropdown-menu">
-						      <a class="dropdown-item" href="Beograd.html">Beograd</a>
-						      <a class="dropdown-item" href="NoviSad.html">Novi Sad</a>
-						      <a class="dropdown-item" href="Kragujevac.html">Kragujevac</a>
-						      <a class="dropdown-item" href="Krusevac.html">Kruševac</a>
-						      <a class="dropdown-item" href="KosovskaMitrovica.html">Kosovska Mitrovica</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
 						    </div>
 						</li>
 						<li class="nav-item mr-2"><a class="nav-link" href="Dostava.html">Dostava</a></li>
@@ -64,8 +64,9 @@
 			<div id="page-info" class="p-5">
 
 				<h1 class="text-center">Naš Tim</h1>
-				<ul class="breadcrumb justify-content-center p-0">
+				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
 					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>
+					<li class="breadcrumb-item"><a href="#">O Nama</a></li>
 					<li class="breadcrumb-item"><a href="#">Naš Tim</a></li>
 				</ul>
 
@@ -80,13 +81,13 @@
 				<div class="col-sm-12 col-md-6 mt-3">
 
 					<div class="card" style="width:400px">
-					  <img class="card-img-top" src="../img/no-image.png">
+					  <img class="card-img-top" src="../img/person.png">
 					  <div class="card-body">
 					    <h4 class="card-title">John Doe</h4>
-					    <p class="card-text">Some example text.</p>
-					    <a href="#" class="btn btn-dark" data-toggle="popover" title="E-mail" data-content="user@user.com">E-mail</a>
-					    <a href="#" class="btn btn-primary" class="btn btn-dark" data-toggle="popover" title="Facebook" data-content="facebook.com/user">Facebook</a>
-					    <a href="#" class="btn btn-info" class="btn btn-dark" data-toggle="popover" title="Twitter" data-content="twitter.com/user">Twitter</a>
+					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					    <button class="btn btn-dark" data-toggle="popover" title="E-mail" data-content="user@user.com">E-mail</button>
+					    <button class="btn btn-primary" class="btn btn-dark" data-toggle="popover" title="Facebook" data-content="facebook.com/user">Facebook</button>
+					    <button class="btn btn-info" class="btn btn-dark" data-toggle="popover" title="Twitter" data-content="twitter.com/user">Twitter</button>
 					  </div>
 					</div>
 
@@ -95,13 +96,13 @@
 				<div class="col-sm-12 col-md-6 mt-3">
 
 					<div class="card" style="width:400px">
-					  <img class="card-img-top" src="../img/no-image.png">
+					  <img class="card-img-top" src="../img/person.png">
 					  <div class="card-body">
 					    <h4 class="card-title">John Doe</h4>
-					    <p class="card-text">Some example text.</p>
-					    <a href="#" class="btn btn-dark" data-toggle="popover" title="E-mail" data-content="user@user.com">E-mail</a>
-					    <a href="#" class="btn btn-primary" class="btn btn-dark" data-toggle="popover" title="Facebook" data-content="facebook.com/user">Facebook</a>
-					    <a href="#" class="btn btn-info" class="btn btn-dark" data-toggle="popover" title="Twitter" data-content="twitter.com/user">Twitter</a>
+					    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					    <button class="btn btn-dark" data-toggle="popover" title="E-mail" data-content="user@user.com">E-mail</button>
+					    <button class="btn btn-primary" class="btn btn-dark" data-toggle="popover" title="Facebook" data-content="facebook.com/user">Facebook</button>
+					    <button class="btn btn-info" class="btn btn-dark" data-toggle="popover" title="Twitter" data-content="twitter.com/user">Twitter</button>
 					  </div>
 					</div>
 
@@ -112,7 +113,10 @@
 		</div>
 
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду

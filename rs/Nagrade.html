@@ -15,8 +15,8 @@
 		<header>
 
 			<div id="top-bar">
-					<a href="/rs/Index.html"><img src="../img/serbia.png"></a>
-					<a href="/en/Index.html"><img src="../img/british.png"></a>
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
 			</div>
 
 			<nav class="navbar navbar-expand-md navbar-dark p-4">
@@ -33,17 +33,17 @@
 						<li class="nav-item dropdown mr-2">
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restorani</a>
 							<div class="dropdown-menu">
-						      <a class="dropdown-item" href="Beograd.html">Beograd</a>
-						      <a class="dropdown-item" href="NoviSad.html">Novi Sad</a>
-						      <a class="dropdown-item" href="Kragujevac.html">Kragujevac</a>
-						      <a class="dropdown-item" href="Krusevac.html">Kruševac</a>
-						      <a class="dropdown-item" href="KosovskaMitrovica.html">Kosovska Mitrovica</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restorani.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
 						    </div>
 						</li>
 						<li class="nav-item mr-2"><a class="nav-link" href="Dostava.html">Dostava</a></li>
 						<li class="nav-item mr-2"><a class="nav-link" href="MojeNarudzbine.html">Moje Narudžbine</a></li>
 						<li class="nav-item dropdown mr-2">
-							<a class="nav-link active dropdown-toggle" data-toggle="dropdown" href="#">O nama</a>
+							<a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#">O nama</a>
 							<div class="dropdown-menu">
 						      <a class="dropdown-item" href="NasTim.html">Naš Tim</a>
 						      <a class="dropdown-item" href="Nagrade.html">Nagrade</a>
@@ -58,8 +58,9 @@
 			<div id="page-info" class="p-5">
 
 				<h1 class="text-center">Nagrade</h1>
-				<ul class="breadcrumb justify-content-center p-0">
+				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
 					<li class="breadcrumb-item"><a href="Index.html">Početna</a></li>
+					<li class="breadcrumb-item"><a href="#">O Nama</a></li>
 					<li class="breadcrumb-item"><a href="#">Nagrade</a></li>
 				</ul>
 
@@ -92,7 +93,10 @@
 			</div>
 		</div>
 
-		<footer class="mt-3 p-3">
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
 			Copyright 2019<br>
 			Небојша Савић • Филип Танић<br>
 			Одсек за софтверско инжењерство Електротехничког факултета Универзитета у Београду
