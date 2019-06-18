@@ -178,3 +178,7 @@ footer{
 	display: flex;
 	align-items: center;
 }
+
+.sortiraj-filter{
+	display: flex;
+}

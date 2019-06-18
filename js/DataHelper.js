@@ -26,6 +26,28 @@ if (!localStorage.globalData){
             "ocene": [5, 5, 3, 5, 4, 2]\
         },\
         {\
+            "id": 11,\
+            "naziv": "Frans",\
+            "opis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",\
+            "tipovi": ["Kineska hrana"],\
+            "adresa": "Maticanska 22, Kruševac",\
+            "grad": "Kruševac",\
+            "slike": ["restoran1.jpg", "restoran2.jpg"],\
+            "jela": [\
+            {\
+                "naziv": "Hamburger",\
+                "cena": 320,\
+                "slika": "hamburger.png"\
+            },\
+            {\
+                "naziv": "Giros",\
+                "cena": 400,\
+                "slika": "giros.jpg"\
+            }\
+            ],\
+            "ocene": [5, 3, 3, 5, 4, 2]\
+        },\
+        {\
             "id": 2,\
             "naziv": "Saradis",\
             "opis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",\
