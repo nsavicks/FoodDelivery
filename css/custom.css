@@ -1,6 +1,17 @@
 
 /* Custom */
 
+html{
+	position: relative;
+   min-height: 100%;
+}
+
+body{
+	padding: 0;
+   margin: 0 0 320px;
+   overflow-x:hidden;
+}
+
 .btn{
 	border-radius: 0;
 }
@@ -125,6 +136,11 @@ footer{
    background: #212121;
    text-align: center;
    color: white;
+   display: block;
+   position: absolute;
+   bottom: 0;
+   height: 300px;
+   width: 100%;
 }
 
 #ads{

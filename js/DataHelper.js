@@ -92,14 +92,24 @@ function dohvatiOcenu(res){
 
 function dodajOcenu(id, ocena){
 
-    var globalData = JSON.parse(localStorage.globalData);
+    if (localStorage.getItem(id) != null){
+        alert("Restoran je vec ocenjen!");
+    }
+    else{
 
-    for (var i = 0 ; i <globalData.restorani.length; i++){
-        if (globalData.restorani[i].id == id){
-            globalData.restorani[i].ocene.push(ocena);
-            break;
+        var globalData = JSON.parse(localStorage.globalData);
+
+        for (var i = 0 ; i <globalData.restorani.length; i++){
+            if (globalData.restorani[i].id == id){
+                globalData.restorani[i].ocene.push(ocena);
+                break;
+            }
         }
+
+        localStorage.setItem("globalData", JSON.stringify(globalData));
+        localStorage.setItem(id, "");
+        alert("Uspesno ste ocenili restoran!");
     }
 
-    localStorage.setItem("globalData", JSON.stringify(globalData));
+    
 }

@@ -14,6 +14,9 @@
 		<script type="text/javascript">
 			
 			var data = dohvatiRestorane();
+			data.sort(function(a,b){
+						return a.naziv.localeCompare(b.naziv);
+					});
 
 			function load(){
 
@@ -48,12 +51,21 @@
 				if (document.getElementById("indijska").checked) f.push("Indijska hrana");
 				if (document.getElementById("giros").checked) f.push("Giros");
 
+				var grad = document.getElementById("opstina").value;
+
 				data = dohvatiRestorane();
+				data.sort(function(a,b){
+						return a.naziv.localeCompare(b.naziv);
+					});
 
-				if (f.length != 0){
-					data = data.filter(function(a){
+				
+				data = data.filter(function(a){
 
-						var res = false;
+					var res;
+
+					if (f.length != 0){
+
+						res = false;
 
 						for (var i = 0; i < f.length; i++){
 							if (a.tipovi.includes(f[i])){
@@ -62,13 +74,50 @@
 							}
 						}
 
-						return res;
+					}
+					else res = true;
 
-					});
-				}
-				
+					
+					if (grad != "Sve" && a.grad != grad) res = false;
+
+					return res;
+
+				});
+			
 
 				load();
+			}
+
+			function orderChange(){
+
+				var e = document.getElementById("sortiraj");
+				var sel = e.options[e.selectedIndex].text;
+
+				if (sel == "Po imenu"){
+
+					data.sort(function(a,b){
+						return a.naziv.localeCompare(b.naziv);
+					});
+
+				}
+				else if (sel == "Po oceni"){
+
+					data.sort(function(a,b){
+						return dohvatiOcenu(b) - dohvatiOcenu(a);
+					});
+
+				}
+				else if (sel == "Po lokaciji"){
+					data.sort(function(a,b){
+						return a.adresa.localeCompare(b.adresa);
+					});
+				}
+				else{
+					alert("NIJE");
+				}
+				
+				load();
+
 			}
 
 		</script>
@@ -138,7 +187,24 @@
 				<div class="col-sm-12 col-lg-3">
 					<div class="jumbotron">
 
-						<h4>Filter:</h4>
+						<h3>Filter:</h3>
+
+							<h6>Grad / Opština:</h6>
+							<hr>
+
+							<select class="form-control" id="opstina">
+								<option value="Sve">Sve opštine</option>
+								<option value="Beograd">Beograd</option>
+								<option value="Novi Sad">Novi Sad</option>
+								<option value="Kragujevac">Kragujevac</option>
+								<option value="Kruševac">Kruševac</option>
+								<option value="Kosovska Mitrovica">Kosovska Mitrovica</option>
+							</select>
+
+							<br>
+
+							<h6>Tip hrane:</h6>
+							<hr>
 
 				    		<div class="custom-control custom-checkbox">
 							    <input type="checkbox" class="custom-control-input" id="srpska" name="srpska">
@@ -171,6 +237,20 @@
 				</div>
 
 				<div class="col-sm-12 col-lg-9">
+
+					<div class="row mt-3">
+
+						<div class="col d-flex align-items-center">
+							<div class="sortiraj-filter">
+								<select  class="custom-select" id="sortiraj" onchange="orderChange()">
+									<option>Po imenu</option>
+									<option>Po lokaciji</option>
+									<option>Po oceni</option>
+								</select>
+							</div>	
+						</div>
+
+					</div>
 
 					<div class="row mt" id="restorani">
 						
