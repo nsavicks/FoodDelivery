@@ -1,0 +1,276 @@
+<html>
+	<meta charset="UTF-8">	
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/custom.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+		<title>Menu - FoodDelivery</title>
+
+		<script src="../js/DataHelper.js"></script>
+
+		<script>
+
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var c = url.searchParams.get("id");
+
+			var data = dohvatiRestorane();
+
+			data = data.filter(function test(a){
+				if (a.id == parseInt(c)) return true;
+				else return false;
+			});
+
+			var sum = 0;
+
+			function load(){
+
+				var bc = document.getElementById("breadcrumb");
+				
+				bc.innerHTML = '<li class="breadcrumb-item"><a href="Index.html">Home page</a></li>\
+					<li class="breadcrumb-item"><a href="#">' + data[0].naziv + '</a></li>\
+					<li class="breadcrumb-item"><a href="#">Menu</a></li>';
+
+
+				var jela = data[0].jela;
+				var row = document.getElementById("jela");
+
+				row.innerHTML = "";
+
+				for (var i = 0; i < jela.length; i++){
+
+					row.innerHTML += '\
+						<div class="col-sm-12 col-md-6 col-lg-4 mt-3">\
+							<div class="card">\
+							  <img class="card-img-top" src="../img/' + jela[i].slika + '">\
+							  <div class="card-body">\
+							    <h4 class="card-title">' + jela[i].naziv + '</h4>\
+							    <p class="card-text">\
+							    	<h3><span class="badge badge-secondary">' + jela[i].cena + ' rsd.</span></h3>\
+							    	<button class="btn btn-success btn-block mt-2" onclick="dodajJelo(\'' + jela[i].naziv + '\',' + jela[i].cena + ')">Add</button>\
+							    </p>\
+							  </div>\
+							</div>\
+						</div>';
+
+				}
+
+				if (localStorage.cart){
+					localStorage.removeItem("cart");
+				}
+
+				refreshCart();
+
+			}
+
+			function refreshCart(){
+
+				
+				var table = document.getElementById("cart-preview");
+
+				table.innerHTML = '<thead class="thead-dark">\
+					    		<th>Dish</th>\
+					    		<th>Price</th>\
+					    		<th>Remove</th>\
+					    	</thead>';
+
+				sum = 0;
+
+				if (localStorage.cart){
+
+					var arr = JSON.parse(localStorage.cart);
+
+					for (var i = 0; i < arr.length; i++){
+						var tr = document.createElement("tr");
+
+						var td = document.createElement("td");
+						td.innerHTML = arr[i].naziv;
+
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.innerHTML = arr[i].cena + " rsd.";
+
+						tr.appendChild(td);
+
+						td = document.createElement("td");
+						td.innerHTML = '<button class="btn btn-danger" onclick="ukloniJelo(' + i + ')">Remove</button>';
+
+						tr.appendChild(td);
+
+						table.appendChild(tr);
+
+						sum += parseInt(arr[i].cena);
+					}
+
+				}
+				
+				table.innerHTML += '\
+					<tr>\
+						<td><strong>Total:</strong></td>\
+						<td colspan=2>' + sum + ' rsd.</td>\
+					</tr>\
+				';
+
+
+			}
+
+			function dodajJelo(naziv,cena){
+				
+				if (localStorage.cart){
+					
+					var arr = JSON.parse(localStorage.cart);
+					arr.push({"naziv": naziv, "cena": cena});
+					localStorage.setItem("cart", JSON.stringify(arr));
+
+				}
+				else{
+					var arr = new Array({"naziv": naziv, "cena": cena});
+					localStorage.setItem("cart", JSON.stringify(arr));
+				}
+
+				refreshCart();
+
+			}
+
+			function ukloniJelo(ind){
+
+				var arr = JSON.parse(localStorage.cart);
+				arr.splice(ind,1);
+				if (arr.length > 0)
+					localStorage.setItem("cart", JSON.stringify(arr));
+				else
+					localStorage.removeItem("cart");
+
+				refreshCart();
+
+			}
+
+			function naruci(){
+
+				if (localStorage.cart){
+					localStorage.setItem("restoran", data[0].naziv);
+					localStorage.setItem("cena", sum);
+					window.location.href = "FormFilling.html";
+				}
+				else{
+					alert("Your cart is empty!");
+				}
+
+			}
+
+		</script>
+
+	</head>
+
+	<body onload="load()">
+		
+		<header>
+
+			<div id="top-bar">
+					<a href="../rs/Index.html"><img src="../img/serbia.png"></a>
+					<a href="../en/Index.html"><img src="../img/british.png"></a>
+			</div>
+
+			<nav class="navbar navbar-expand-md navbar-dark p-4">
+
+				<a class="navbar-brand" href="Index.html"><img src="../img/logo.png" style="width: 30px;"/> FoodDelivery</a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse pl-3" id="collapsibleNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item mr-2"><a class="nav-link" href="Index.html">Home page</a></li>
+						<li class="nav-item dropdown mr-2">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Restaurants</a>
+							<div class="dropdown-menu">
+						      <a class="dropdown-item" href="Restaurants.html?grad=Beograd">Beograd</a>
+						      <a class="dropdown-item" href="Restaurants.html?grad=Novi Sad">Novi Sad</a>
+						      <a class="dropdown-item" href="Restaurants.html?grad=Kragujevac">Kragujevac</a>
+						      <a class="dropdown-item" href="Restaurants.html?grad=Krusevac">Kruševac</a>
+						      <a class="dropdown-item" href="Restaurants.html?grad=Kosovska Mitrovica">Kosovska Mitrovica</a>
+						    </div>
+						</li>
+						<li class="nav-item mr-2"><a class="nav-link" href="Delivery.html">Delivery</a></li>
+						<li class="nav-item mr-2"><a class="nav-link" href="MyOrders.html">My Orders</a></li>
+						<li class="nav-item dropdown mr-2">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">About</a>
+							<div class="dropdown-menu">
+						      <a class="dropdown-item" href="OurTeam.html">Our Team</a>
+						      <a class="dropdown-item" href="Awards.html">Awards</a>
+						      <a class="dropdown-item" href="Sponsors.html">Sponsors</a>
+						      <a class="dropdown-item" href="Contact.html">Contact</a>
+						    </div>
+						</li>
+					</ul>
+				</div>	
+			</nav>
+
+			<div id="page-info" class="p-5">
+
+				<h1 class="text-center">Menu</h1>
+				<ul class="breadcrumb justify-content-center p-0" id="breadcrumb">
+					<li class="breadcrumb-item"><a href="Index.html">Home page</a></li>
+					<li class="breadcrumb-item"><a href="#">Menu</a></li>
+				</ul>
+
+			</div>
+			
+		</header>  
+
+		<div class="container-fluid mt-3">
+			
+			<div class="row">
+
+				<div class="col-sm-12 col-lg-4">
+					<div class="jumbotron">
+
+						<h4>Cart:</h4>
+
+
+					    <table class="table table-striped table-fluid" id="cart-preview">
+
+					    	
+					    </table>		
+					    		
+
+      					<button onclick="naruci()" class="btn btn-success btn-block mt-3">Order</button>
+
+
+					</div>
+				</div>
+
+				<div class="col-sm-12 col-lg-8">
+
+					<div class="row mt" id="jela">		
+
+						
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+		<footer class="mt-3 pb-3">
+			<div id="ads" class="p-2">
+				<img src="../img/ads.png">
+			</div>
+			Copyright 2019<br>
+			Nebojsa Savic • Filip Tanic<br>
+			Faculty of Electrical Engineering, University of Belgrade
+		</footer>
+
+
+	</body>
+
+</html>
